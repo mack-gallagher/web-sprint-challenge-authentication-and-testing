@@ -1,6 +1,15 @@
 const User = require('../auth/users-model');
 
 function validate_registering_user(req, res, next) {
+
+  if (Object.entries(req.body).length !== 2
+      || !req.body.hasOwnProperty('username')
+      || !req.body.hasOwnProperty('password')) {
+    res.status(400).json({ message: ' [ username and password required ] Registering users must have a username and a password, and ONLY a username and a password [???]' });
+    return;
+  }
+
+
   User.get_all()
     .then(result => {
       if (result.some(x => x.username === req.body.username)) {
@@ -8,19 +17,20 @@ function validate_registering_user(req, res, next) {
         return;
       } else {
 
-        if (Object.entries(req.body).length !== 2
-            || !req.body.hasOwnProperty('username')
-            || !req.body.hasOwnProperty('password')) {
-          res.status(400).json({ message: ' [ username and password required ] Registering users must have a username and a password, and ONLY a username and a password [???]' });
-          return;
-        }
-
         next();
       }
     })
 }
 
 function validate_logging_in_user(req, res, next) {
+
+  if (Object.entries(req.body).length !== 2
+      || !req.body.hasOwnProperty('username')
+      || !req.body.hasOwnProperty('password') ) {
+    res.status(400).json({ message: ' [ username and password required ] Registering users must provide a username and a password, and ONLY a username and a password [???]' });
+    return;
+  }
+
   
   User.get_all()
     .then(result => {
@@ -28,13 +38,6 @@ function validate_logging_in_user(req, res, next) {
         res.status(404).json({ message: ' [ invalid credentials ] Sorry, that user does not exist' });
         return;
       } else {
-
-          if (Object.entries(req.body).length !== 2
-              || !req.body.hasOwnProperty('username')
-              || !req.body.hasOwnProperty('password') ) {
-            res.status(400).json({ message: ' [ username and password required ] Registering users must provide a username and a password, and ONLY a username and a password [???]' });
-            return;
-          }
 
         next();
       }
