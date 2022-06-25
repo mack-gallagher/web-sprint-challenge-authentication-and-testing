@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { validate_registering_user, validate_logging_in_user } = require('../middleware/additional-middleware');
 const User = require('./users-model');
 const secret = require('../secrets');
+const jwt = require('jsonwebtoken');
 
 function generate_token(user) {
   const payload = {
@@ -56,7 +57,6 @@ router.post('/register', validate_registering_user, (req, res) => {
 });
 
 router.post('/login', validate_logging_in_user, (req, res) => {
-  res.end('implement login, please!');
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -81,7 +81,7 @@ router.post('/login', validate_logging_in_user, (req, res) => {
       the response body should include a string exactly as follows: "invalid credentials".
   */
 
-  User.find()
+  User.get_all()
     .then(result => {
       let user = '';
       for (let i = 0; i < result.length; i++) {

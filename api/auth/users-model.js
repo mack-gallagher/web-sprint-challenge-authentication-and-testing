@@ -17,3 +17,5 @@ function introduce(user) {
       return db('users');
     });
 }
+
+module.exports = { get_all, get_by_id, introduce };
