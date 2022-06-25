@@ -49,7 +49,7 @@ router.post('/register', validate_registering_user, (req, res) => {
 
     req.body.password = hash;
 
-    User.introduce(req.body)
+    return User.introduce(req.body)
       .then(result => {
         res.status(201).json(result);
       })
