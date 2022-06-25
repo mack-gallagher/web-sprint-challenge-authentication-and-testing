@@ -28,13 +28,21 @@ describe('Student tests', () => {
 
   });
 
-/*
   describe('Login [/api/auth/login]', () => {
+    test('Attempting to log in with the wrong password raises a 401 [invalid credentials] response', async () => {
+      const expected_status_code = 401;
+
+      await request(server).post('/api/auth/register').send({ username: 'Mack', password: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' });
+
+      const response = await request(server).post('/api/auth/login').send({ username: 'Mack', password: 'aAAA' });
+
+      expect(response.status).toEqual(expected_status_code);
+    });
+
   });
 
   describe('Secret jokes [/api/jokes/]', () => {
     
   });
 
-*/
 });

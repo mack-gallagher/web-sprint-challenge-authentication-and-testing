@@ -13,8 +13,9 @@ function get_by_id(user_id) {
 function introduce(user) {
   return db('users')
     .insert(user)
-    .then(feedback => {
-      return db('users');
+    .then(ids => {
+      return db('users')
+        .where({ id: ids[0] });
     });
 }
 
