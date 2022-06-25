@@ -15,7 +15,8 @@ function introduce(user) {
     .insert(user)
     .then(ids => {
       return db('users')
-        .where({ id: ids[0] });
+        .where({ id: ids[0] })
+        .first();
     });
 }
 
